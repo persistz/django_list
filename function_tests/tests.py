@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from django.test import LiveServerTestCase
 import unittest
+import time
 
 
 class NewVisitorTest(LiveServerTestCase):
@@ -88,6 +89,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Buy milk', page_text)
 
         # 两个人都很满意，去睡觉了
+        time.sleep(10)
 
 # if __name__ == '__main__':
 #     unittest.main()
