@@ -1,11 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from django.test import LiveServerTestCase
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import unittest
 import time
 
 
-class NewVisitorTest(LiveServerTestCase):
+class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome()
@@ -89,7 +90,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Buy milk', page_text)
 
         # 两个人都很满意，去睡觉了
-        time.sleep(10)
+        time.sleep(3)
 
     def test_layout_and_styling(self):
         self.browser.get(self.live_server_url)
@@ -97,7 +98,6 @@ class NewVisitorTest(LiveServerTestCase):
 
         # 输入框居中显示
         inputbox = self.browser.find_element_by_id('id_new_item')
-        time.sleep(5)
         self.assertAlmostEqual(
             inputbox.location['x'] + inputbox.size['width']/2,
             512,
