@@ -5,6 +5,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import unittest
 import time
 import sys
+import re
 
 
 class NewVisitorTest(StaticLiveServerTestCase):
@@ -16,11 +17,16 @@ class NewVisitorTest(StaticLiveServerTestCase):
                 cls.server_url = 'http://' + arg.split('=')[1]
                 return
         super().setUpClass()
+        print("*********")
+        print(cls.live_server_url)
         cls.server_url = cls.live_server_url
 
     @classmethod
     def tearDownClass(cls):
-        if cls.server_url == cls.live_server_url:
+        # 此处按照书中demo，如下，会报错，因为live_server_url无法正常生成，暂时不了解django中testcase的原理，使用正则绕过
+        # if cls.server_url == cls.live_server_url:
+        if ("127.0.0.1" in cls.server_url) or ("localhost" in cls.server_url):
+            print("$$$$$$$$")
             super().tearDownClass()
 
     def setUp(self):
