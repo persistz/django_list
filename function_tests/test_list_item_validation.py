@@ -25,7 +25,7 @@ class ItemValidationTest(FunctionalTest):
         # 在清单页面她看到了一个类似的错误消息
         self.check_for_rows_in_list_table('1: I am Hanmeimei')
         error = self.browser.find_element_by_css_selector('.has-error')
-        self.assertEqual(error.text, "You can't have an empty list item")
+        self.assertEqual(error.text, "You can't have an empty item")
 
         # 输入文字之后就没问题了
         self.browser.find_element_by_id('id_new_item').send_keys('He is Lilei\n')

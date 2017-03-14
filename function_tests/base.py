@@ -1,6 +1,7 @@
 from selenium import webdriver
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import sys
+import HTMLTestRunner
 
 
 class FunctionalTest(StaticLiveServerTestCase):
@@ -12,8 +13,6 @@ class FunctionalTest(StaticLiveServerTestCase):
                 cls.server_url = 'http://' + arg.split('=')[1]
                 return
         super().setUpClass()
-        print("*********")
-        print(cls.live_server_url)
         cls.server_url = cls.live_server_url
 
     @classmethod
@@ -21,7 +20,6 @@ class FunctionalTest(StaticLiveServerTestCase):
         # 此处书中demo如下，测试报错，因为live_server_url无法正常生成，暂时不了解django中testcase的原理，使用正则绕过
         # if cls.server_url == cls.live_server_url:
         if ("127.0.0.1" in cls.server_url) or ("localhost" in cls.server_url):
-            print("\n$$$$$$$$")
             super().tearDownClass()
 
     def setUp(self):
@@ -36,5 +34,3 @@ class FunctionalTest(StaticLiveServerTestCase):
         rows = table.find_elements_by_tag_name('tr')
         self.assertIn(row_text, [row.text for row in rows])
 
-# if __name__ == '__main__':
-#     unittest.main()
