@@ -4,6 +4,7 @@ from django.http import HttpRequest
 from django.utils.html import escape
 from lists.views import home_page
 from lists.models import Item, List
+from lists.forms import ItemForm
 
 
 class HomePageTest(TestCase):
@@ -19,13 +20,13 @@ class HomePageTest(TestCase):
         self.assertIn(b'<title>To-Do lists</title>', response.content)
         self.assertTrue(response.content.endswith(b'</html>'))
 
-    def test_home_page_only_saves_items_when_necessary(self):
+    def test_homepage_renders_home_template(self):
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'home.html')
 
-        request = HttpRequest()
-        home_page(request)
-        self.assertEqual(Item.objects.count(), 0)
-        self.assertEqual(List.objects.count(), 0)
-
+    def test_home_page_uses_item_form(self):
+        response = self.client.get('/')
+        self.assertIsInstance(response.context['form'], ItemForm)
 
 class NewListTest(TestCase):
 

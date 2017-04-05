@@ -1,7 +1,7 @@
 from selenium import webdriver
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import sys
-import HTMLTestRunner
+# import HTMLTestRunner
 
 
 class FunctionalTest(StaticLiveServerTestCase):
