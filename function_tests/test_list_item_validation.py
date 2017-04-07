@@ -1,8 +1,10 @@
 from .base import FunctionalTest
+from unittest import skip
 
 
 class ItemValidationTest(FunctionalTest):
 
+    @skip
     def test_cannot_add_empty_list_items(self):
         # 韩梅梅访问首页，不小心提交了一个空待办事项
         # 输入框中没输入内容，她就按下了回车键
